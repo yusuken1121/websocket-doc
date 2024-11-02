@@ -7,7 +7,7 @@ import { ModeToggle } from "./ModeToggle";
 
 const Header = () => {
   return (
-    <header className="py-8 xl:py-12 text-white">
+    <header className="py-8 xl:py-12 font-bold">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <Link href="/">

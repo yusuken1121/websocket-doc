@@ -41,7 +41,7 @@ export default function DocumentsPage() {
         </Button>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {documents.map((doc) => (
-            <Card key={doc.id} className=" border-2shadow-md hover:shadow-lg ">
+            <Card key={doc.id} className=" border-2 shadow-md hover:shadow-lg ">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-lg font-medium">
                   {doc.title}
