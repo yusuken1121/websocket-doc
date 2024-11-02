@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,21 +14,48 @@ type Document = {
 };
 
 export default function DocumentsPage() {
-  const [documents, setDocuments] = useState<Document[]>([
-    { id: "1", title: "Project Ideas", shared: false, activeUsers: 1 },
-    { id: "2", title: "Meeting Notes", shared: true, activeUsers: 3 },
-    { id: "3", title: "Personal Journal", shared: false, activeUsers: 1 },
-  ]);
+  const [documents, setDocuments] = useState<Document[]>([]);
 
-  const createNewDocument = () => {
+  const createNewDocument = async () => {
     const newDoc = {
-      id: String(documents.length + 1),
-      title: `New Document ${documents.length + 1}`,
+      title: "New Document",
       shared: false,
-      activeUsers: 1,
     };
-    setDocuments([...documents, newDoc]);
+    const res = await fetch("/api/documents", {
+      method: "POST",
+      body: JSON.stringify(newDoc),
+    });
+    const data = await res.json();
+    setDocuments([...documents, data]);
   };
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const res = await fetch("/api/documents", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          setError(errorData.error);
+          return;
+        }
+
+        const data = await res.json();
+        setDocuments(data);
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+        setError("データの取得に失敗しました");
+      }
+    };
+
+    fetchDocuments();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background p-8">

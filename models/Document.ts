@@ -12,7 +12,7 @@ export interface DocumentDocument {
 const DocumentSchema = new Schema<DocumentDocument>(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true },
+    content: { type: String, required: true, default: "" },
     shared: { type: Boolean, default: false },
     activeUsers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },
