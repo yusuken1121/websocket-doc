@@ -1,10 +1,22 @@
 "use client";
+
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Login() {
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export default function Page() {
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -25,41 +37,43 @@ export default function Login() {
   };
 
   return (
-    <section className="w-full h-screen flex items-center justify-center">
-      <form
-        className="p-6 w-full max-w-[400px] flex flex-col justify-between items-center gap-2 
-        border border-solid border-black bg-white rounded"
-        onSubmit={handleSubmit}
-      >
-        {error && <div className="text-red-500">{error}</div>}
-        <h1 className="mb-5 w-full text-2xl font-bold">Sign In</h1>
-        <label className="w-full text-sm">Email</label>
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full h-8 border border-solid border-black rounded p-2"
-          name="email"
-        />
-        <label className="w-full text-sm">Password</label>
-        <div className="flex w-full">
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full h-8 border border-solid border-black rounded p-2"
-            name="password"
-          />
-        </div>
-        <button className="w-full mt-4 py-2 border border-solid border-black rounded bg-gray-200 hover:bg-gray-300">
-          Sign In
-        </button>
-
-        <Link
-          href="/register"
-          className="text-sm text-[#888] transition duration-150 ease hover:text-black mt-4"
-        >
-          Do not have an account?
-        </Link>
-      </form>
-    </section>
+    <div className="flex h-screen w-full items-center justify-center px-4">
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-2xl">Sign In</CardTitle>
+          <CardDescription>
+            Enter your email and password to login to your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            {error && <div className="text-red-500">{error}</div>}
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" name="password" type="password" required />
+            </div>
+            <Button type="submit" className="w-full">
+              Sign In
+            </Button>
+            <div className="text-center text-sm">
+              Don&apos;t have an account?{" "}
+              <Link href="/register" className="underline">
+                Sign up
+              </Link>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
