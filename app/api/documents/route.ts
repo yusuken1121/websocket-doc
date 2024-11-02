@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
     const session = await getServerSession(authOptions);
-    // console.log("⭐️", session);
 
     if (!session) {
       return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
     const user = await User.findOne({ email: session!.user?.email });
-    const documents = await Document.find({ userId: user?._id });
+    const documents = await Document.find({
+      activeUsers: { $in: [user?._id] },
+    });
 
     return NextResponse.json(documents);
   } catch (error) {

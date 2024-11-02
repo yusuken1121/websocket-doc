@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { UserDocument } from "./User";
 
 export interface DocumentDocument {
@@ -19,6 +19,8 @@ const DocumentSchema = new Schema<DocumentDocument>(
   { timestamps: true }
 );
 
-const DocumentModel = model<DocumentDocument>("Document", DocumentSchema);
+const Document =
+  mongoose.models?.Document ||
+  mongoose.model<DocumentDocument>("Document", DocumentSchema);
 
-export default DocumentModel;
+export default Document;
