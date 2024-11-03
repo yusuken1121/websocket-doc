@@ -1,4 +1,5 @@
 import { DocumentType } from "@/types/Document";
+import QuillBoard from "./_components/QuillBoard";
 
 export default async function Page({
   params,
@@ -25,5 +26,12 @@ export default async function Page({
     return <div>Failed to load document</div>;
   }
 
-  return <div>{document.title}</div>;
+  return (
+    <div className="container mx-auto flex flex-col h-full">
+      {/* コンポーネントわけてSSRにする */}
+      <p>{document.title}</p>
+
+      <QuillBoard />
+    </div>
+  );
 }
