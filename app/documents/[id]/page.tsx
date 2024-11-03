@@ -10,7 +10,9 @@ export default async function Page({
   let document: DocumentType | null = null;
 
   try {
-    const res = await fetch(`http://localhost:3000/api/documents/${slug}`);
+    const res = await fetch(`http://localhost:3000/api/documents/${slug}`, {
+      cache: "no-store",
+    });
 
     if (!res.ok) {
       throw new Error("Failed to fetch document");
@@ -31,7 +33,7 @@ export default async function Page({
       {/* コンポーネントわけてSSRにする */}
       <p>{document.title}</p>
 
-      <QuillBoard />
+      <QuillBoard id={slug} />
     </div>
   );
 }
