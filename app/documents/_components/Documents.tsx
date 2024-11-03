@@ -5,16 +5,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusIcon, Share2Icon, UserIcon } from "lucide-react";
-
-type Document = {
-  id: string;
-  title: string;
-  shared: boolean;
-  activeUsers: number;
-};
+import { DocumentType } from "@/types/Document";
 
 export default function DocumentsPage() {
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const [documents, setDocuments] = useState<DocumentType[]>([]);
 
   const createNewDocument = async () => {
     const newDoc = {
@@ -68,7 +62,10 @@ export default function DocumentsPage() {
         </Button>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {documents.map((doc) => (
-            <Card key={doc.id} className=" border-2 shadow-md hover:shadow-lg ">
+            <Card
+              key={doc._id}
+              className=" border-2 shadow-md hover:shadow-lg "
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-lg font-medium">
                   {doc.title}
@@ -80,11 +77,13 @@ export default function DocumentsPage() {
                   <UserIcon className="mr-2 h-4 w-4" />
                   {doc.activeUsers} active user{doc.activeUsers > 1 ? "s" : ""}
                 </div>
-                <Link href={`/documents/${doc.id}`}>
-                  <Button className="mt-4 w-full border-2 hover:bg-accent">
-                    Open
-                  </Button>
-                </Link>
+
+                <Button
+                  className="mt-4 w-full border-2 hover:bg-accent"
+                  asChild
+                >
+                  <Link href={`/documents/${doc._id}`}>Open</Link>
+                </Button>
               </CardContent>
             </Card>
           ))}

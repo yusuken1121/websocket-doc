@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await connectDB();
     const session = await getServerSession(authOptions);
