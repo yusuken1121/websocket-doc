@@ -5,6 +5,7 @@ import { Provider } from "./provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/Header/Header";
 import { Alegreya_Sans } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const alegreyaSans = Alegreya_Sans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster />
             <div className="h-screen flex flex-col">
               <Header />
               <div className="flex-1">{children}</div>

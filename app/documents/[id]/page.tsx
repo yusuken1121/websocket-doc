@@ -1,6 +1,7 @@
 import { DocumentType } from "@/types/Document";
 import QuillBoard from "./_components/QuillBoard";
 import { BreadcrumbDocument } from "./_components/Breadcrumb";
+import DocumentHeader from "./_components/DocumentHeader";
 
 export default async function Page({
   params,
@@ -20,7 +21,7 @@ export default async function Page({
     }
 
     const data = await res.json();
-    document = data.document;
+    document = data.document as DocumentType;
   } catch (error) {
     console.log(error);
   }
@@ -33,8 +34,7 @@ export default async function Page({
     <div className="container mx-auto flex flex-col gap-4 h-full">
       {/* コンポーネントわけてSSRにする */}
       <BreadcrumbDocument id={slug} />
-      <h1 className="text-xl">{document.title}</h1>
-
+      <DocumentHeader document={document} />
       <QuillBoard id={slug} />
     </div>
   );
