@@ -53,7 +53,7 @@ function QuillBoard({ id }: { id: string }) {
       theme="snow"
       value={value}
       onChange={setValue}
-      className="h-full"
+      className="h-full dark:text-accent dark:bg-black light:bg-white"
     />
   );
 }

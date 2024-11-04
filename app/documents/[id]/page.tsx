@@ -1,5 +1,6 @@
 import { DocumentType } from "@/types/Document";
 import QuillBoard from "./_components/QuillBoard";
+import { BreadcrumbDocument } from "./_components/Breadcrumb";
 
 export default async function Page({
   params,
@@ -29,9 +30,10 @@ export default async function Page({
   }
 
   return (
-    <div className="container mx-auto flex flex-col h-full">
+    <div className="container mx-auto flex flex-col gap-4 h-full">
       {/* コンポーネントわけてSSRにする */}
-      <p>{document.title}</p>
+      <BreadcrumbDocument id={slug} />
+      <h1 className="text-xl">{document.title}</h1>
 
       <QuillBoard id={slug} />
     </div>
